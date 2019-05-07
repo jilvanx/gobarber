@@ -1,4 +1,6 @@
 const express = require('express') // microframework nodejs
+const session = require('express-session')
+const LokiStore = require('connect-loki')(session)
 const nunjucks = require('nunjucks') // views
 const path = require('path') // lida com o caminhos dentro do projeto (windows)
 
@@ -13,6 +15,16 @@ class App {
   }
   middleware () {
     this.express.use(express.urlencoded({ extended: false }))
+    this.express.use(
+      session({
+        store: new LokiStore({
+          path: path.resolve(__dirname, '..', 'tmp', 'sessions.db')
+        }),
+        secret: 'MyAppSecret',
+        resave: true,
+        saveUninitialized: true
+      })
+    )
   }
   views () {
     nunjucks.configure(path.resolve(__dirname, 'app', 'views'), {

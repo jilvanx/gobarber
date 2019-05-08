@@ -1,0 +1,7 @@
+{% for message in flashSuccess %}
+  <dir class="alert alert-success">{{ message }}</dir>
+{% endfor %}
+
+{% for message in flashError %}
+  <dir class="alert alert-danger">{{ message }}</dir>
+{% endfor %}

@@ -4,11 +4,13 @@
   <form action="/signin" method="post" >
     <img src="/images/logo.svg" alt="Logo GoBarber" height="42">
 
+    {% include "_partials/flash.njk" %}
+
     <input type="email" name="email" placeholder="Seu e-mail" />
     <input type="password" name="password" placeholder="Senha secreta" />
 
     <button type="submit">Entrar</button>
 
-    <a href="/singup">Criar conta grátis</a>
+    <a href="/signup">Criar conta grátis</a>
   </form>
 {% endblock %}

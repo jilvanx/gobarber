@@ -3,6 +3,7 @@ const session = require('express-session')
 const LokiStore = require('connect-loki')(session)
 const nunjucks = require('nunjucks') // views
 const path = require('path') // lida com o caminhos dentro do projeto (windows)
+const flash = require('connect-flash') // lida com o caminhos dentro do projeto (windows)
 
 class App {
   constructor () {
@@ -15,13 +16,15 @@ class App {
   }
   middleware () {
     this.express.use(express.urlencoded({ extended: false }))
+    this.express.use(flash())
     this.express.use(
       session({
+        name: 'root',
+        secret: 'MyAppSecret',
+        resave: true,
         store: new LokiStore({
           path: path.resolve(__dirname, '..', 'tmp', 'sessions.db')
         }),
-        secret: 'MyAppSecret',
-        resave: true,
         saveUninitialized: true
       })
     )
